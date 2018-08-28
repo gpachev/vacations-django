@@ -7,7 +7,8 @@
     <title>Document</title>
     {% load static %}
     <link rel="stylesheet" type="text/css"  href="{% static 'portal/css/bootstrap.min.css' %}">
-    {{ form.media }}
+    <link rel="stylesheet" type="text/css"  href="{% static 'portal/css/fontawesome.css' %}">
+    <link rel="stylesheet" type="text/css"  href="{% static 'portal/css/bootstrap-datetimepicker.min.css' %}">
 </head>
 <body>
     <div class="container-fluid">
@@ -32,7 +33,11 @@
     </div>
 
     <script type="text/javascript" src="{% static 'portal/js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/popper.js' %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/moment.js' %}"></script>
     <script type="text/javascript" src="{% static 'portal/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/main.js'%}"></script>
     <!--https://www.jqueryscript.net/time-clock/Date-Time-Picker-Bootstrap-4.html>-->
 </body>
 </html>
