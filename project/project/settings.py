@@ -132,5 +132,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'public/media')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("font/woff", ".woff", True)
+    mimetypes.add_type("font/woff2", ".woff2", True)
+    mimetypes.add_type("font/ttf", ".ttf", True)
 
