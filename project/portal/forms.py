@@ -19,3 +19,8 @@ class SubmitForm(forms.ModelForm):
     class Meta:
         model = MissModel
         fields = ("from_date", "to_date", "type_miss")
+        widgets = {
+            'from_date': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'to_date': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'type_miss': forms.Select(attrs={'class': 'form-control', 'required': True})
+        }
