@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import MissModel
+from .models import Absence
 
 VACATION = 'vacation'
 DELAY = 'delay'
@@ -17,7 +17,7 @@ TYPE_CHOICES = (
 
 class SubmitForm(forms.ModelForm):
     class Meta:
-        model = MissModel
+        model = Absence
         fields = ("from_date", "to_date", "type_miss")
         widgets = {
             'from_date': forms.TextInput(attrs={'class': 'form-control', 'required': True}),

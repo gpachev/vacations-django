@@ -1,7 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
-class MissModel(models.Model):
+class Absence(models.Model):
+    """
+    Absence model, containing absence related info.
+    Vacations must be approved by admin.
+    """
     VACATION = 'vacation'
     DELAY = 'delay'
 
@@ -13,5 +18,5 @@ class MissModel(models.Model):
     from_date = models.DateTimeField()
     to_date = models.DateTimeField()
     type_miss = models.CharField(max_length=10, choices=TYPE_CHOICES, default=DELAY)
-    #user - current logged user (auto)
-    #approved - boolean, only admins can
+    approved = models.BooleanField(default=False)
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
