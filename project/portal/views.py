@@ -6,7 +6,7 @@ from portal.forms import SubmitForm
 # Create your views here.
 class HomeView(View):
     form_class = SubmitForm
-    template_name = 'portal/main_template.html'
+    template_name = 'portal/form_template.html'
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()

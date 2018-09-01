@@ -13,20 +13,8 @@
     <link rel="stylesheet"  href="{% static 'portal/css/bootstrap-datetimepicker.min.css' %}">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 col-md-4 col-md-offset-4">
-
-
-                    <form action="{% url 'home' %}" method="POST">
-                        {% csrf_token %}
-                        {{form.as_p}}
-                        <button id="submit" class="btn btn-primary" type="submit" value="Submit">Submit</button>
-                    </form>
-
-            </div>
-        </div>
-    </div>
+        {% block content %}
+        {% endblock %}
 
     <script type="text/javascript" src="{% static 'portal/js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'portal/js/popper.js' %}"></script>

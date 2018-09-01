@@ -138,3 +138,6 @@ if DEBUG:
     mimetypes.add_type("font/woff2", ".woff2", True)
     mimetypes.add_type("font/ttf", ".ttf", True)
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'

@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from portal.views import HomeView
+from django.contrib.auth import views
 
 urlpatterns = [
-    path('', HomeView.as_view(), name="home")
+    path('', HomeView.as_view(), name="home"),
+    path('login', views.LoginView.as_view(template_name='portal/login_template.html'), name='login'),
+    
 ]
