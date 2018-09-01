@@ -20,3 +20,6 @@ class Absence(models.Model):
     type_miss = models.CharField(max_length=10, choices=TYPE_CHOICES, default=DELAY)
     approved = models.BooleanField(default=False)
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "Vacation {0}".format(self.pk)
