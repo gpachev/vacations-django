@@ -4,16 +4,13 @@ from .models import Absence
 
 VACATION = 'vacation'
 DELAY = 'delay'
+SICK = 'sick'
 
 TYPE_CHOICES = (
     (VACATION, 'Vacation'),
-    (DELAY, 'Delay')
+    (DELAY, 'Delay'),
+    (SICK, 'Sick')
 )
-
-# class SubmitForm(forms.Form):
-#     from_date = forms.DateTimeField(widget=widgets.AdminSplitDateTime)
-#     to_date  = forms.DateTimeField(widget=widgets.AdminSplitDateTime)
-#     type_miss = forms.ChoiceField(widget=forms.RadioSelect, choices=TYPE_CHOICES)
 
 class SubmitForm(forms.ModelForm):
     class Meta:

@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="form-heading">
-                <h2 class="text-center">Portal Login</h2>
-                <p class="text-center">Please enter your username and password</p>
+            <div class="text-center form-heading">
+                <h2>Portal Login</h2>
+                <p>Please enter your username and password</p>
             </div>
-            <form id="Login" action="{% url 'login' %}" method="POST">
+            <form id="Login" class="text-center" action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
                     <input type="text" class="form-control" name="username" placeholder="Username">
