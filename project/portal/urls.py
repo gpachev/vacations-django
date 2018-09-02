@@ -21,5 +21,5 @@ from django.contrib.auth import views
 urlpatterns = [
     path('', HomeView.as_view(), name="home"),
     path('login', views.LoginView.as_view(template_name='portal/login_template.html'), name='login'),
-    
+    path('logout', views.LogoutView.as_view(template_name='portal/logout_template.html'), name='logout')
 ]

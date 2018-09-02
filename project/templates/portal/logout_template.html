@@ -1,0 +1,12 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="text-center col-12 col-md-4">
+            <h2>Logged out!</h2>
+            <a href="{% url 'login'%}">Click here to login again.</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

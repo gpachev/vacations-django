@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.views import View
 from portal.forms import SubmitForm
-#from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
-class HomeView(View):
+class HomeView(LoginRequiredMixin, View):
+    
     form_class = SubmitForm
     template_name = 'portal/form_template.html'
 
