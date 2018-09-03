@@ -1,14 +1,28 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import datetime, timedelta
 
 def yeld_year():
     """
     Helper function to get/set year for limit.
     Returns current year as int.
     """
-    from datetime import datetime
     return datetime.now().year
+
+def update_limiter(from_date, to_date, limiter):
+    """
+    Helper function to calculate days for Vacation and update limiter
+    """
+    days_as_timedelta = to_date.date() - from_date.date()
+    days_as_int = days_as_timedelta / timedelta(days=1) #hack in P3
+
+    new_days_left = limiter.days_left - days_as_int
+    new_days_used = limiter.days_used + days_as_int
+
+    limiter.days_left=new_days_left
+    limiter.days_used=new_days_used
+    #specify which fields to save
+    limiter.save(update_fields=['days_left', 'days_used'])
 
 
 class Limit(models.Model):
@@ -57,7 +71,25 @@ class Absence(models.Model):
     def __str__(self):
         return "{0} {1}".format(self.type_miss, self.pk).title()
 
-    #def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         #Should check if there is a limit for that user/year
-        #Update limit on save or return error if limit reached
-        #super(Absence, self).save(*args, **kwargs)
+        #Update limit on save or return False if limit reached or not set
+        if self.type_miss == 'vacation':
+            entered_year = self.to_date.year
+
+            query_set = Limit.objects \
+                              .filter(year=entered_year) \
+                              .filter(user__id=self.user.id)
+            if query_set:
+                update_limiter(self.from_date, self.to_date, query_set.first())
+                super(Absence, self).save(*args, **kwargs)
+                return True
+            else:
+                #There is no limiter set(found) for this year,
+                #  so that we can not save this vacation!
+                return False
+
+        else: #sick and delays have no limits
+            super(Absence, self).save(*args, **kwargs)
+            return True
+        
