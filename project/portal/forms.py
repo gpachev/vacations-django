@@ -1,16 +1,5 @@
 from django import forms
-
-from .models import Absence
-
-VACATION = 'vacation'
-DELAY = 'delay'
-SICK = 'sick'
-
-TYPE_CHOICES = (
-    (VACATION, 'Vacation'),
-    (DELAY, 'Delay'),
-    (SICK, 'Sick')
-)
+from portal.models import Absence
 
 class SubmitForm(forms.ModelForm):
     class Meta:
