@@ -74,6 +74,7 @@ class Absence(models.Model):
     type_miss = models.CharField(max_length=10, choices=TYPE_CHOICES, default=DELAY)
     approved = models.BooleanField(default=False)
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+    comment = models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
         return "{0} {1}".format(self.type_miss, self.pk).title()

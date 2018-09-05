@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import View
+from portal.models import Limit, yeld_year
 from portal.forms import SubmitForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -13,8 +14,18 @@ class HomeView(LoginRequiredMixin, View):
     template_name = 'portal/form_template.html'
 
     def get(self, request, *args, **kwargs):
+        
         form = self.form_class()
-        return render(request, self.template_name, {'form': form})
+        personal = Limit.objects \
+                        .filter(user = request.user) \
+                        .filter(year = yeld_year()) \
+                        .first()
+
+        context = {
+            'form': form,
+            'personal': personal
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)

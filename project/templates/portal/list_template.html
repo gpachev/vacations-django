@@ -1,3 +1,18 @@
 {% block content %}
-    <p>Implement vacation list per user here.</p>
+    <h3 class="form-heading">Current limits for {{personal.year}}</h3>
+    {% comment %} table - year, initial, days_left, days_used {% endcomment %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Initial</td>
+                <td>Used</td>
+                <td>Left</td>
+            </tr>
+            <tr>
+                <td>{{personal.initial}}</td>
+                <td>{{personal.days_used}}</td>
+                <td>{{personal.days_left}}</td>
+            </tr>
+        </tbody>
+    </table>
 {% endblock %}
