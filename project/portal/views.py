@@ -35,6 +35,8 @@ class HomeView(LoginRequiredMixin, View):
             #if the custom save method 
             # returns True, it is ok,
             # return False, pass ERROR to form
-            instance.save()
+            success = instance.save()
             form = self.form_class() #return pristine form
-        return render(request, self.template_name, {'form': form})
+        else:
+            success = True
+        return render(request, self.template_name, {"form": form, "success": success})
