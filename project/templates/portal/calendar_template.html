@@ -1,4 +1,29 @@
 {% block content %}
-    <h3 class="form-heading">Vacations for <span id="month-name">September</span></h3>
+    <h3 class="form-heading">Currently Out</h3>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">User</th>
+            <th scope="col">Type</th>
+            <th scope="col">From Date</th>
+            <th scope="col">To Date</th>
+            <th scope="col">Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for absence in absences %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ absence.user }}</td>
+                <td>{{ absence.type_miss }}</td>
+                <td>{{ absence.from_date }}</td>
+                <td>{{ absence.to_date }}</td>
+                <td>{{ absence.comment }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}

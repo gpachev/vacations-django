@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.views import View
-from portal.models import Limit, yeld_year
+from portal.models import Limit, yeld_year, Absence
 from portal.forms import SubmitForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+import datetime as dt
 
 
 # Create your views here.
@@ -20,10 +21,11 @@ class HomeView(LoginRequiredMixin, View):
                         .filter(user = request.user) \
                         .filter(year = yeld_year()) \
                         .first()
-
+        absences = get_current_absences()
         context = {
             'form': form,
-            'personal': personal
+            'personal': personal,
+            'absences' : absences
         }
         return render(request, self.template_name, context)
 
@@ -39,4 +41,14 @@ class HomeView(LoginRequiredMixin, View):
             form = self.form_class() #return pristine form
         else:
             success = True
-        return render(request, self.template_name, {"form": form, "success": success})
+        personal = Limit.objects \
+                .filter(user = request.user) \
+                .filter(year = yeld_year()) \
+                .first()
+        absences = get_current_absences()
+        return render(request, self.template_name, {"form": form, "success": success, 'absences': absences})
+
+def get_current_absences():
+    today = dt.date.today()
+    absences = Absence.objects.all().filter(from_date__lte=today, to_date__gte=today)
+    return absences
