@@ -14,19 +14,9 @@ class HomeView(LoginRequiredMixin, View):
     form_class = SubmitForm
     template_name = 'portal/form_template.html'
 
-    def get(self, request, *args, **kwargs):
-        
+    def get(self, request, *args, **kwargs):  
         form = self.form_class()
-        personal = Limit.objects \
-                        .filter(user = request.user) \
-                        .filter(year = yeld_year()) \
-                        .first()
-        absences = get_current_absences()
-        context = {
-            'form': form,
-            'personal': personal,
-            'absences' : absences
-        }
+        context = self.get_home_page_data(request.user.id)
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -38,17 +28,14 @@ class HomeView(LoginRequiredMixin, View):
             # returns True, it is ok,
             # return False, pass ERROR to form
             success = instance.save()
-            form = self.form_class() #return pristine form
-        else:
-            success = True
-        personal = Limit.objects \
-                .filter(user = request.user) \
-                .filter(year = yeld_year()) \
-                .first()
-        absences = get_current_absences()
-        return render(request, self.template_name, {"form": form, "success": success, 'absences': absences})
+        # else:
+        #     success = True
+        context = self.get_home_page_data(request.user.id)
+        return render(request, self.template_name, context)
 
-def get_current_absences():
-    today = dt.date.today()
-    absences = Absence.objects.all().filter(from_date__lte=today, to_date__gte=today)
-    return absences
+    def get_home_page_data(self, user_id):
+        today = dt.date.today()
+        absences = Absence.objects.all().filter(from_date__lte=today, to_date__gte=today)
+        my_absences = Absence.objects.filter(user=user_id).order_by('from_date')
+        personal = Limit.objects.filter(user = user_id, year = yeld_year()).first()
+        return {'absences': absences, 'my_absences': my_absences, 'personal': personal, 'form': self.form_class()}
